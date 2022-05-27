@@ -23,8 +23,7 @@ const options = {
         if (delta <= 0) {
             refs.startBtn.setAttribute("disabled", true);            
         } else {
-            refs.startBtn.removeAttribute("disabled");
-            updateTimePanels(convertMs(delta));
+            refs.startBtn.removeAttribute("disabled");           
         }
     },
 };
@@ -35,11 +34,12 @@ class Timer {
         this.intervalId = null;
         this.onTick = onTick;
     }
-        
-    start() {
-        if (!this.isActive) {
-            this.isActive = true;
-            refs.input.setAttribute("disabled", true);
+    
+    start() {       
+        if (!this.isActive) {              
+                this.isActive = true;
+                refs.input.setAttribute("disabled", true);
+                refs.startBtn.setAttribute("disabled", true); 
             this.intervalId = setInterval(() => {
                 const currentTime = Date.now();
                 const targetTimeInMs = userDate.getTime();
@@ -50,14 +50,13 @@ class Timer {
                     this.onTick(convertMs(deltaTime));
                     console.log(deltaTime)
                 }
-            }, 1000);
+            }, 1000);                
             }
     }
 }
 
 const timer = new Timer({onTick: updateTimePanels});
-refs.startBtn.addEventListener("click", timer.start.bind(timer));
-refs.startBtn.setAttribute("disabled", true);
+refs.startBtn.addEventListener("click", timer.start.bind(timer)); 
 
 function updateTimePanels(time) {
     console.log(time);

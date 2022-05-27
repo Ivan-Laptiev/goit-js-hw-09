@@ -1,3 +1,6 @@
+
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
  return new Promise((resolve, reject) => {
@@ -32,10 +35,10 @@ function onFormSubmit(event) {
   for (let i = 1; i <= amountDelayes; i += 1) {
         createPromise(i, delay)
       .then(({ position, delay }) => {
-        console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
       })
       .catch(({ position, delay }) => {
-        console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
       });
     delay += stepDelay;
   }
